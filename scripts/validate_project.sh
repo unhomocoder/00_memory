@@ -52,6 +52,21 @@ for s in "$D"/_memory/sessions/*.md; do
   fi
 done
 
+# --- unfilled template placeholders -----------------------------------------
+# A scaffolded file that still contains {like_this} was never seeded. This is the
+# defect project-init's own rules forbid, and it is invisible until an agent reads
+# the file and tries to act on the instruction inside the braces.
+for f in "$D/CLAUDE.md" "$D/_memory/LONGTERM.md" "$D/_memory/STATE.md" \
+         "$D"/_memory/sessions/*.md "$D"/_canon/*.md; do
+  [ -f "$f" ] || continue
+  case "$f" in "$D"/_memory/legacy/*) continue ;; esac
+  hits=$(grep -o '{[^}]\{1,90\}}' "$f" 2>/dev/null | head -3)
+  if [ -n "$hits" ]; then
+    n=$(grep -c '{[^}]\{1,90\}}' "$f")
+    fail "${f#$D/}: $n unfilled placeholder(s), first: $(echo "$hits" | head -1)"
+  fi
+done
+
 # --- generated views stamped ------------------------------------------------
 for v in "$D/_memory/_index.md" "$D/output/_manifest.md"; do
   [ -f "$v" ] || continue

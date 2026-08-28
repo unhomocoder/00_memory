@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "iclaw",
+  "description": "Kyle's project memory and governance protocol",
+  "owner": { "name": "Kyle" },
+  "plugins": [
+    {
+      "name": "iclaw",
+      "source": "./",
+      "description": "Project memory and governance protocol: on-demand skills for scaffolding projects, maintaining layered memory, and naming versioned output artifacts"
+    }
+  ]
+}

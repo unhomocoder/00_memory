@@ -1,0 +1,10 @@
+# Normalize text in the repo; let the working copy use platform endings.
+* text=auto
+
+# Shell scripts MUST stay LF. A .sh checked out with CRLF fails on Linux/macOS
+# with "bad interpreter: No such file or directory".
+*.sh text eol=lf
+
+# Markdown carries the seal marker 끝 (U+B05D) and Korean vocabulary; keep UTF-8
+# and treat as text so diffs stay readable.
+*.md text

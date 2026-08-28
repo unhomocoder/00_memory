@@ -1,0 +1,8 @@
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# Nothing else is ignored. Skills, templates, the validator, specs, plans,
+# and the v2.0.0 archive are all tracked — the repo IS the governance record.

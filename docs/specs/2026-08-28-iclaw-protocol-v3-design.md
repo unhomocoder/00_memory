@@ -347,8 +347,23 @@ Executed 2026-08-28 on explicit user confirmation:
 `04` and `05` were temporarily restored to `_review/` and mined before deletion; `_review/`
 is removed once the plugin is built. The user recreates projects via Cowork afterward.
 
-**First project of the new architecture: `01_agentic_thesis`**, seeded from the recovered
-`05` record. Requires a Cowork project prompt as a deliverable.
+**First project of the new architecture: `01_agentic_thesis`** — created 2026-08-29 in
+Claude Code with the `01_evaluation-moderators` branch, seeded from the recovered `05`
+record. Both scopes validate. `01_MLVU_project` was deleted on the user's instruction to
+free the `01` slot; its memory and vocab are staged at `_seed_mlvu/`.
+
+Two corrections the migration forced, both now in the templates and prompts:
+
+- **Legacy memory goes to `_memory/legacy/`, not `_memory/sessions/`.** Files named
+  `{date}_memory.md` with pre-v3 frontmatter fail the session naming and `n:` checks,
+  and they are `끝`-sealed — so renaming or reformatting them to fit is exactly the
+  repair §8.2 forbids. A sibling folder preserves them intact and keeps the validator
+  honest.
+- **The ≤100-line read budget is tight for a seeded project.** `01_agentic_thesis`
+  settles at 102 and its branch at 109 with real history. The budget is advisory
+  (`WARN`, not `FAIL`) and was left at 100 deliberately: enforcing it drove corpus
+  conventions into `_canon/` and de-duplicated objectives against the `[TBD]` register,
+  both correct. Raising the limit to silence a small overage would remove that pressure.
 
 ## 12. Verification plan
 

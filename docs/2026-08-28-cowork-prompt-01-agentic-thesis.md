@@ -1,5 +1,9 @@
 # Cowork Project Prompts — `01_agentic_thesis`
 
+> **Status: executed 2026-08-29 in Claude Code.** `01_agentic_thesis` and its
+> `01_evaluation-moderators` branch exist and validate; Step C is done. Kept as the
+> record of what was seeded and why. Re-run only to rebuild from scratch.
+
 **Two prompts, used once each, in order.** Neither is an orientation prompt — orientation
 runs automatically every session via `iclaw:project-memory` and needs no input from you.
 
@@ -285,7 +289,7 @@ exist. None of this can be carried by a prompt.
 |---|---|---|---|
 | `output\` | `01_agentic_thesis\01_evaluation-moderators\output\` | 18 | Instance-level research. Keep date folders and `_manifest.md` intact; the naming already matches iclaw v3 |
 | `discussions\` | `01_agentic_thesis\output\2026_08_02\` and `...\2026_08_05\` | 6 | Field-level, pre-topic. Re-slug to `{nn}_discussion-{topic}_v1.md` and add manifest rows |
-| `legacy_memory\` | `01_agentic_thesis\_memory\sessions\` | 4 | Already `끝`-sealed. **Do not reformat them** — they carry v2.0.0 frontmatter, and iclaw's drift rule reports the mismatch rather than repairing it |
+| `legacy_memory\` | `01_agentic_thesis\_memory\legacy\` | 4 | **Not `sessions/`.** Their filenames are `{date}_memory.md` and their frontmatter predates `protocol`/`n`, so they fail the session naming check — and they are `끝`-sealed, so renaming or reformatting them to fit is exactly the repair the drift rule forbids. They sit beside `sessions/`, intact |
 | `LEGACY_directive_v0.2.0.md` | `01_agentic_thesis\output\2026_08_02\` | 1 | The predecessor's own directive, kept as a record of what v3 replaced |
 
 `03_corpus-audit-script_v1.py` reproduces every number in the corpus audit and takes an

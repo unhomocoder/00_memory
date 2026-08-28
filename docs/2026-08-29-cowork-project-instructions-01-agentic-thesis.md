@@ -37,6 +37,12 @@ branch.
 This project has a branch, so `iclaw:project-memory` will ask once per session which
 scope we are working in. Answer that before recording anything.
 
+**If these skills are not available to you, say so at the start of the session and
+do not proceed with project work.** Do not read or write `_memory/` by hand and do
+not improvise the protocol — the file formats have rules (sealing, view stamps,
+identity matching) that are not stated here, and a plausible approximation fails
+silently.
+
 ## Working folders
 
 Each scope has its own pair.

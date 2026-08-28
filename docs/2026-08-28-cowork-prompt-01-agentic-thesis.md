@@ -18,9 +18,40 @@ Markers: `[confirmed]` = decided by Kyle, recovered from the record. `[proposed]
 reconstructed during migration, **not yet approved**. `[open]` = needs a decision.
 
 ---
+
+## Precondition — check before pasting anything
+
+**These prompts require the `iclaw` plugin.** They name three skills —
+`iclaw:project-init`, `iclaw:project-memory`, `iclaw:project-artifacts` — and
+deliberately do not restate what those skills do. The protocol lives in the skills,
+not here.
+
+**Verify first.** Ask the session: *"Do you have the `iclaw:project-init` skill?"*
+
+| Answer | Action |
+|---|---|
+| Yes | Paste Prompt A |
+| No | **Stop. Do not paste.** |
+
+Pasting without the skill is the failure mode worth guarding against: the session
+will improvise a structure that looks right — a memory folder, some markdown, a
+sensible-seeming layout — but is not the protocol. Nothing will error, and the
+divergence surfaces weeks later as memory that quietly does not work.
+
+**If the plugin cannot be installed in Cowork** — most likely because the repo is
+private and Cowork cannot authenticate — then create the project in **Claude Code**,
+where the plugin is installed and enabled, and point Cowork at the finished folder
+afterward. The project is plain files on disk; only the scaffolding step needs the
+skill, and nothing downstream cares which client produced it.
+
+---
 ---
 
 # PROMPT A — the root project
+
+**First: if you do not have the `iclaw:project-init` skill, stop and tell me so. Do
+not improvise a project structure — an approximation of this protocol is worse than
+nothing, because it fails silently.**
 
 Create a new iclaw project using `iclaw:project-init`.
 
@@ -155,6 +186,9 @@ Show me the tree and the seeded `LONGTERM.md` before doing any work.
 # PROMPT B — the thesis branch
 
 Run only after Prompt A completes.
+
+**If you do not have the `iclaw:project-init` skill, stop and tell me so. Do not
+improvise the branch structure.**
 
 Using `iclaw:project-init` in **branch** mode, create a branch inside `01_agentic_thesis`.
 

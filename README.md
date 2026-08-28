@@ -67,6 +67,9 @@ ls ~/.claude/plugins/cache/iclaw/iclaw/*/skills/
 
 ## Docs
 
+- `docs/starting-a-new-project.md` — **start here.** You copy nothing out of this
+  folder; `iclaw:project-init` writes the scaffold
+
 - `docs/specs/2026-08-28-iclaw-protocol-v3-design.md` — the protocol
 - `docs/plans/2026-08-28-iclaw-plugin-implementation.md` — build plan
 - `_archive/` — superseded v2.0.0 governance corpus

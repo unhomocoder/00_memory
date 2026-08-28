@@ -379,10 +379,30 @@ Two corrections the migration forced, both now in the templates and prompts:
 
 ## 13. Open items
 
-- ~~Local-path marketplace source format~~ **RESOLVED 2026-08-29.** `claude plugin
-  marketplace add <path>` records `{"source":"directory","path":"…"}`, and
-  `installLocation` is the source directory itself — so skill edits go live with no
-  reinstall and no build step. GitHub is required only for Cowork and cross-machine sync.
+- ~~Local-path marketplace source format~~ **RESOLVED 2026-08-29, then CORRECTED.**
+  `claude plugin marketplace add <path>` does record
+  `{"source":"directory","path":"…"}`. But the earlier conclusion drawn from it — that
+  `installLocation` points at the source directory, so skill edits go live with no
+  reinstall — **was wrong**, and cost a full cycle of confusion. That field describes
+  the *marketplace*; `installed_plugins.json` shows the *plugin's* `installPath` is a
+  **cache copy** made at install time.
+
+  Two consequences, both observed the hard way:
+
+  1. **The cache is a snapshot.** The 1.0.0 install captured the Task-1 state — the
+     stub `project-artifacts` plus the since-archived v2.0.0 `Claude.md`, `Memory.md`
+     and templates. `project-init` and `project-memory` were never in it, so no session
+     could invoke them, while the source on disk looked complete.
+  2. **Refresh is version-gated.** `claude plugin update` compares versions; 1.0.0
+     against 1.0.0 is correctly a no-op. Editing a skill has no effect until
+     `plugin.json`'s version is bumped.
+
+  Additionally, once `00_parent` gained a git remote, the marketplace **silently
+  re-resolved from a directory source to that git remote** — so local edits stopped
+  mattering entirely until pushed.
+
+  **The actual edit loop is in `README.md` under "Changing a skill."** There is no
+  live-edit shortcut.
 - **Skill trigger behavior is UNVERIFIED.** Whether an off-tangent question inside a
   project invokes no skill could not be tested in the authoring session, since its skill
   roster was fixed before the plugin existed. Must be confirmed in a fresh session; if

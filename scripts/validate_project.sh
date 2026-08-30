@@ -84,7 +84,7 @@ done
 # --- session-start read budget ----------------------------------------------
 if [ -f "$D/_memory/STATE.md" ] && [ -f "$D/_memory/LONGTERM.md" ]; then
   lines=$(cat "$D/_memory/STATE.md" "$D/_memory/LONGTERM.md" | wc -l)
-  [ "$lines" -le 100 ] || echo "WARN: session-start read is $lines lines (target <=100)"
+  [ "$lines" -le 200 ] || echo "WARN: session-start read is $lines lines (target <=200)"
 fi
 
 if [ "$fails" -eq 0 ]; then echo "OK: $D conforms to iclaw/1.0.0"; exit 0; fi

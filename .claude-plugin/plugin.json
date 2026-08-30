@@ -1,7 +1,7 @@
 {
   "name": "iclaw",
   "description": "Project memory and governance protocol: on-demand skills for scaffolding projects, maintaining layered memory (LONGTERM/STATE/sessions/canon), and naming versioned output artifacts",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": { "name": "Kyle" },
   "license": "MIT",
   "keywords": ["memory", "project-management", "governance", "obsidian"]

@@ -17,6 +17,8 @@ dissolved. Rows below v3.0.0 describe a protocol that is no longer operative.
 | 2026-08-29 | plugin | 1.0.0 → 1.1.0 | skills/ | The 1.0.0 install cached a Task-1 snapshot: the stub `project-artifacts` plus the since-archived v2.0.0 files. `project-init` and `project-memory` were never in the cache, so no session could invoke them while the source looked complete. Cache refresh is version-gated, so a bump was required to ship the real skills. | None. `claude plugin marketplace update iclaw && claude plugin update iclaw@iclaw`, then restart the session. Verify with `ls ~/.claude/plugins/cache/iclaw/iclaw/*/skills/`. |
 | 2026-08-29 | plugin | 1.1.0 → 1.2.0 | scripts/ | Validator now fails on unfilled `{placeholder}` text in `CLAUDE.md`, `LONGTERM.md`, `STATE.md`, session logs and canon. A scaffolded file that was never seeded passed validation silently and only surfaced when an agent read the file and tried to act on the instruction inside the braces. `_memory/legacy/` is exempt — pre-v3 records are never rewritten. | None. Re-run the validator on existing projects; unfilled placeholders will now be reported. |
 
+| 2026-08-30 | plugin | 1.2.0 → 1.3.0 | scripts/ | Raised the session-start read budget (`STATE.md` + `LONGTERM.md` combined) from ≤100 to ≤200 lines. Still a `WARN`, never a `FAIL`. The 100-line target was deliberately tight (spec §"read budget") and forced aggressive template trimming on seeded projects; 200 gives layered memory room to breathe while keeping the per-session read bounded. Historical `docs/` references to 100 are left as design record, not rewritten. | None. `claude plugin marketplace update iclaw && claude plugin update iclaw@iclaw`, then restart the session. |
+
 ---
 
 ## Notes on this file's own history

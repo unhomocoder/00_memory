@@ -83,7 +83,7 @@ Write continuously, not in a batch at session end.
 
 | Event | Destination |
 |---|---|
-| Work, thinking, pivots, discarded approaches | session `## Work` |
+| Work done, options weighed, pivots, discarded approaches | session `## Work` |
 | File written to `output/` | session `## Files Touched → Produced` **and** a `_manifest.md` row |
 | Source file edited in place | session `## Files Touched → Modified` only |
 | File read from `input/` | session `## Files Touched → Consumed` only |
@@ -92,10 +92,10 @@ Write continuously, not in a batch at session end.
 | A new domain term or settled fact | `_canon/`, marked `[proposed]` unless the user confirmed it |
 | A decision deliberately deferred | `LONGTERM.md ## [TBD] Register` |
 
-Section 2 of the session log is a **draft**, not a summary. Preserve the traces:
-approaches explored and abandoned, reasoning that went nowhere, the order things
-were realised in. Do not tidy it during the session — that is what the summary is
-for, and an idea that looks useless today is often load-bearing later.
+`## Work` is a **working draft**, not a summary. Record the path the work actually
+took: options explored and abandoned, dead ends and why they were dead, the order
+in which things were settled. Do not tidy it during the session — that is what the
+summary is for, and an idea that looks useless today is often load-bearing later.
 
 Discarded ideas stay in the session log. **They never graduate into `LONGTERM.md`**,
 which is read every session and must stay lean.

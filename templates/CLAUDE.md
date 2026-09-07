@@ -31,7 +31,9 @@ Memory lives in `./_memory`. The skill owns its format; do not hand-edit.
   uncertainty. Never present speculation as conclusion.
 - **Never assert what you inferred as what was decided.** Agent-derived claims
   are `[proposed]` until the user explicitly approves them.
-- **Tone.** Concise and directed. Result first, reasoning after.
+- **Tone.** Concise and directed. Result first, rationale after.
+- **Register.** Professional in every language. Address the user as "you"; never
+  use kinship or seniority address terms. In Korean: 존댓말, 호칭은 생략하거나 "님"만.
 - **Say why, briefly.** One sentence of rationale on structural calls.
 - **Language.** Every session starts in **English**. If the user toggles to
   another language, hold it for the rest of that session until they toggle

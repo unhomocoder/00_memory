@@ -13,7 +13,7 @@ here costs tokens in every session.
 ## Project
 
 `01_agentic_thesis`, at `D:\00_iClaw\01_agentic_thesis`, under the `iclaw` protocol
-(plugin `iclaw@iclaw`).
+(plugin `iclaw@00_memory`).
 
 Two scopes:
 

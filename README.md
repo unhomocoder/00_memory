@@ -43,16 +43,19 @@ and the session-start read budget.
 
 **There is no live-edit shortcut.** Installed plugins run from a *cache copy*, not from
 this directory, and the refresh is version-gated. Editing a `SKILL.md` here changes
-nothing until all five steps are done:
+nothing until all six steps are done:
 
 ```bash
 # 1. edit skills/<name>/SKILL.md
 # 2. bump "version" in .claude-plugin/plugin.json   ← without this, step 4 is a no-op
 # 3. commit and push — the marketplace resolves from the git remote, not this folder
 git add -A && git commit -m "..." && git push
-# 4. refresh
-claude plugin marketplace update iclaw && claude plugin update iclaw@iclaw
+# 4. refresh Claude Code
+claude plugin marketplace update 00_memory && claude plugin update iclaw@00_memory
 # 5. restart the session — the skill registry binds at session start
+# 6. refresh Cowork: in the Claude desktop app, open the 00_memory marketplace,
+#    refresh it, then Update the plugin. Cowork mirrors plugins from the app's own
+#    registry, never from the cache in step 4, and nothing re-ingests on its own.
 ```
 
 Skipping step 2 is the failure that bites hardest: every command reports success,
@@ -62,7 +65,7 @@ the previous version.
 Verify what is actually loaded:
 
 ```bash
-ls ~/.claude/plugins/cache/iclaw/iclaw/*/skills/
+ls ~/.claude/plugins/cache/00_memory/iclaw/*/skills/
 ```
 
 ## Docs

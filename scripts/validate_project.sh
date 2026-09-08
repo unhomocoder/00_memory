@@ -143,8 +143,10 @@ if [ -f "$D/_memory/LONGTERM.md" ]; then
       br=$2; gsub(/^ +| +$/, "", br)
       if (NF < 6) { printf "FAIL: LONGTERM.md branch row \047%s\047 has no Status column\n", br; next }
       st=$4; gsub(/^ +| +$/, "", st)
-      if (st !~ /^(active|retired)/) {
-        printf "FAIL: LONGTERM.md branch row \047%s\047 has status \047%s\047; expected active or retired <date>\n", br, st
+      # active  = live this term          dormant = inactive, will return (a course
+      # between terms)                    retired = over, not coming back
+      if (st !~ /^(active|dormant|retired)/) {
+        printf "FAIL: LONGTERM.md branch row \047%s\047 has status \047%s\047; expected active, dormant <date> or retired <date>\n", br, st
         next
       }
       if (st == "active" && system("test -d \"" D "/" br "\"") != 0)

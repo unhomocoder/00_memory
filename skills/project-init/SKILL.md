@@ -130,7 +130,18 @@ rather than silently resolved.
 A branch that is finished, abandoned, or folded into another does **not** lose its row.
 The row is history, on the same argument as the manifest's never-delete rule.
 
-1. Set the row's `Status` to `retired {yyyy-mm-dd}` in the parent's `LONGTERM.md`.
+Three statuses, and the difference matters:
+
+| Status | Means | Typical case |
+|---|---|---|
+| `active` | Live now. The directory must exist | Work in progress |
+| `dormant {yyyy-mm-dd}` | Inactive, expected to return | A course between terms |
+| `retired {yyyy-mm-dd}` | Over. Not coming back | An abandoned experiment |
+
+**Ask which one applies. Never infer it from inactivity** — a branch with no sessions
+this month may simply be a course that has not started.
+
+1. Set the row's `Status` in the parent's `LONGTERM.md`.
 2. Extend its `Purpose` cell with where the work went — a successor branch, an `output/`
    artifact, or "abandoned, nothing carried forward". A retired row that does not say
    what happened is worse than no row.

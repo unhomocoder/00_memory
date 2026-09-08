@@ -5,9 +5,18 @@ description: Name, version, and register files written to an iclaw project's out
 
 # Project Artifacts
 
-Every file you create in a project goes in `output/`. Writing a loose `.md`, `.csv`,
-`.html`, or script to the project root, to `_memory/`, or into `input/` is a
-protocol violation.
+Every artifact you create in a project goes in `output/`. Writing a loose `.md`, `.csv`,
+`.html`, or script to the project root or into `input/` is a protocol violation.
+
+Two things are not artifacts and this skill does not govern them:
+
+- **`_memory/`** is written by `iclaw:project-memory`, which owns its format. A session
+  log is not a loose file.
+- **A working folder this project's `CLAUDE.md` names, with the rule that governs it.**
+  `02_local_swarm` declares `src/` edited in place under git; a folder declared that way
+  is exempt from artifact naming and gets **no** `_manifest.md` row. The exemption must
+  be stated in `CLAUDE.md` — an undeclared folder is still a violation, and you may not
+  infer one from a directory's existence.
 
 ## Path
 

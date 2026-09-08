@@ -31,6 +31,9 @@ Deliberately undecided. **A [TBD] is not a licence to improvise — stop and ask
 
 ## Constraints
 
-## Branches
+## Branches of this project
+
+Branches of *this* project only. A sibling scope under the same parent is not a
+branch of this one. `iclaw:project-init` owns the row format.
 
 _None._

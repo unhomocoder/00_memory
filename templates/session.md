@@ -29,4 +29,4 @@ protocol: iclaw/1.0.0
 
 ## Summary
 
-{Written at end of session only.}
+_Written at seal time._

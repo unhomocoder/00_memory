@@ -61,16 +61,28 @@ Read the parent's `LONGTERM.md` at orientation **only if** the active scope's
               n is 1 for the first file of that date and carries NO suffix;
               the second is n: 2 as ..._session_2.md. Filename and n always agree.
               The date is today's date. A session crossing midnight keeps its file.
-4. Report, at most six lines:
+4. Set STATE.md `last_session:` to that filename, now. It names the newest session
+   file, which is what every reader assumes it means. Leave `updated:` alone --
+   that tracks the state content and is rewritten at seal.
+5. Report, at most six lines:
 
    PROJECT  {nn}_{name}
    SCOPE    {active scope, or "flat"}
    MEMORY   STATE {date} · session {filename} ({new|resumed})
    STATE    {2-3 sentences from STATE.md}
    OPEN     {open threads, or "none"}
-   FLAGS    {protocol drift · guard mismatch · unregistered input/ files · view drift · none}
+   FLAGS    {none, or one clause per flag}
 
-5. Stop. Wait for direction.
+6. Stop. Wait for direction.
+```
+
+**A flag names its cause and its count, never a bare token.** `view drift` alone is
+wallpaper — it cannot be acted on and it reappears every session. Write what disagrees
+with what:
+
+```
+FLAGS    view drift (2 manifest rows cite 2026_08_29_session.md, which is not on disk)
+FLAGS    unregistered input/ (3 files not named in STATE.md or the session log)
 ```
 
 Check `input/` for files not mentioned in `STATE.md` or the active session log and
@@ -109,13 +121,18 @@ a session feels finished.
 1. Write the session's ## Summary: what was accomplished, what was left open,
    decisions and their rationale, any change of direction.
 2. Rewrite STATE.md in full — current state, open threads, blocked, do not repeat.
-   Set `updated:` and `last_session:`.
+   Set `updated:`. (`last_session:` was already set at ORIENT.)
 3. Update LONGTERM.md objective checkboxes where status changed.
-4. Append a row to _memory/_index.md and refresh its `generated:` stamp.
-5. Set `status: sealed` in the session frontmatter.
-6. Append the seal marker 끝 as the final line. Nothing after it — no trailing
+4. Set `status: sealed` in the session frontmatter.
+5. Append the seal marker 끝 as the final line. Nothing after it — no trailing
    whitespace, no newline of content.
+6. Rebuild the session index:  bash <plugin_dir>/scripts/reindex.sh <project_dir>
 ```
+
+**Do not hand-write `_index.md`.** It is a view whose every column comes out of session
+frontmatter, and it was previously appended by hand at seal — which is why nine session
+files across this workspace had produced five index rows. The script rebuilds it from
+the files. It is not tied to sealing; run it any time the view is wanted.
 
 ## Invariants
 
@@ -125,7 +142,13 @@ a session feels finished.
 - **Never assign `[confirmed]`.** That marker belongs to the user alone. Your own
   inferences are `[proposed]` until they approve them.
 - **Never edit `_index.md` or `_manifest.md` to add information that is not in a
-  session file.** They are views; session files are the source.
+  session file.** They are views; session files are the source. `_index.md` is
+  rebuilt by `scripts/reindex.sh`, never written by hand.
+- **A `[TBD]` is not a licence to improvise.** An item in the `[TBD] Register` is
+  deliberately undecided. Stop and ask; do not pick a plausible value and proceed.
+- **Relative paths resolve against the file they appear in**, never against the
+  project root. `../../_canon/vocab.md` written in `_memory/LONGTERM.md` means two
+  levels up from `_memory/`, not from the project directory.
 - **Memory is written in English** — `LONGTERM.md`, `STATE.md`, session logs, and
   the views — regardless of what language the session ran in. Continuity documents
   are read months later by a different session, and one consistent language is what

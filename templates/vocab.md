@@ -22,4 +22,14 @@ rule that governs `_memory/`. A term's exact form is the point of recording it.
 
 ---
 
-**{Term}** — `[marker]` {definition}. {What it is not, where confusion is plausible.}
+_No terms recorded yet._
+
+<!-- Entry form, one blank line between entries. Bold term, em dash, marker,
+     definition, then what it is NOT wherever confusion is plausible:
+
+     **Citekey** - `[confirmed]` `firstauthorYYYYkeyword`, lowercase, ASCII-folded.
+     The join key across every corpus record. Not a bibliography key, not a title slug.
+
+     Written as a comment so an unfilled canon file carries no brace placeholder --
+     the example would otherwise survive into a real file and fail validation. -->
+

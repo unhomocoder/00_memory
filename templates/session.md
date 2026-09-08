@@ -11,7 +11,7 @@ protocol: iclaw/1.0.0
 
 ### {yyyy-mm-dd}
 
-{Running log. Drafts, decisions, pivots, discarded approaches — kept, not cleaned up.}
+{Dated record: what was done, what was decided, what was set aside and why.}
 
 ## Files Touched
 

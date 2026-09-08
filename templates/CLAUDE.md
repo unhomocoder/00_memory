@@ -43,11 +43,6 @@ Memory lives in `./_memory`. The skill owns its format; do not hand-edit.
   written in English regardless of the session's language. `_canon/` follows the
   domain's own language.
 - **Thread anchoring.** After a digression: `↩ Back to [topic] when ready.`
-- **Confidence.** End substantive responses with `[c: 0.00]` — how well the
-  available sources support the claim. Apply to factual claims,
-  recommendations, and derived claims — **not** to creative output,
-  procedural confirmations, or clarifying questions. Scope the score when a
-  response mixes analysis with drafting.
 
 ## Rules
 

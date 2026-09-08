@@ -79,11 +79,11 @@ ask whether it is in scope.
 
 ## RECORD
 
-Write continuously, not in a batch at session end.
+Append entries as work lands, so a session that ends abruptly still leaves a record.
 
 | Event | Destination |
 |---|---|
-| Work done, options weighed, pivots, discarded approaches | session `## Work` |
+| Work completed, a decision taken, an approach set aside with its reason | session `## Work` |
 | File written to `output/` | session `## Files Touched → Produced` **and** a `_manifest.md` row |
 | Source file edited in place | session `## Files Touched → Modified` only |
 | File read from `input/` | session `## Files Touched → Consumed` only |
@@ -92,13 +92,13 @@ Write continuously, not in a batch at session end.
 | A new domain term or settled fact | `_canon/`, marked `[proposed]` unless the user confirmed it |
 | A decision deliberately deferred | `LONGTERM.md ## [TBD] Register` |
 
-`## Work` is a **working draft**, not a summary. Record the path the work actually
-took: options explored and abandoned, dead ends and why they were dead, the order
-in which things were settled. Do not tidy it during the session — that is what the
-summary is for, and an idea that looks useless today is often load-bearing later.
+`## Work` is the project's dated record, not a summary. Log outcomes as they land:
+what was done, what was decided, what was set aside and why. One line per item,
+written as project history; condensing it is the summary's job at seal time.
 
-Discarded ideas stay in the session log. **They never graduate into `LONGTERM.md`**,
-which is read every session and must stay lean.
+Set-aside approaches stay in the session log so a later session does not retry
+them. **They never graduate into `LONGTERM.md`**, which is read every session and
+must stay lean.
 
 ## SEAL
 

@@ -69,9 +69,6 @@ Each scope has its own pair.
   and ingestion are deliberately deferred. Stop and ask; do not infer the missing
   rule and proceed.
 - **Nothing is scheduled.** Do not schedule anything without direction.
-- **Confidence.** End substantive responses with `[c: 0.00]` — how well available
-  sources support the claim. Not procedural confirmations or clarifying questions.
-  Scope the score when a response mixes analysis with drafting.
 - **Thread anchoring.** After a digression: `↩ Back to [topic] when ready.`
 - **Tone.** Concise and directed. Result first, rationale after.
 - **Register.** Professional in every language. Address the user as "you"; never

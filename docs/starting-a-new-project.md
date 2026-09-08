@@ -99,8 +99,8 @@ projects actually needed:
 - **Language.** The default is English every session, with an in-session toggle that
   resets. A project written in another language usually replaces this with a table:
   prose in one language, memory in English, conversation following the user.
-- **Confidence scoring.** The default applies `[c: 0.00]` to factual claims. Creative
-  projects exempt narrative output — a scored scene draft is noise.
+- **Claim labels.** The default marks each claim **sourced**, **derived**, or **open**.
+  Creative projects exempt narrative output — a labelled scene draft is noise.
 - **Decision authority.** Worth naming which decisions must be surfaced before you act.
   For fiction that meant killing a character or changing POV; for research it is
   usually committing to a corpus or a design.

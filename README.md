@@ -101,15 +101,73 @@ claude plugin update iclaw@00_memory
 #    registry, never from the cache in step 4, and nothing re-ingests on its own.
 ```
 
+**Do not remove and re-add the plugin when Update looks inactive.** Steps 4 and 6 are
+the whole update path and they work — 1.8.0 installed this way, matching commit
+`0546ce8`. See *Never remove the plugin in order to update it* below for why removal is
+the more expensive road.
+
 Skipping step 2 is the failure that bites hardest: every command reports success,
 `claude plugin list` shows the plugin enabled, and the session silently keeps running
 the previous version.
 
-Verify what is actually loaded:
+## Verify what is actually loaded
+
+`~/.claude/plugins/installed_plugins.json` names the live copy, its version, **and the
+git commit it was built from**. That is the only check that cannot lie — `claude plugin
+list` reports enablement, not version, and the cache directory lists every version ever
+installed.
 
 ```bash
-ls ~/.claude/plugins/cache/00_memory/iclaw/*/skills/
+cat ~/.claude/plugins/installed_plugins.json
 ```
+
+```json
+"iclaw@00_memory": [{ "version": "1.8.0",
+                      "gitCommitSha": "0546ce872d6a9299d1967674bb6d43d3c4706b13" }]
+```
+
+Match that SHA against `git log -1 --format=%H`. If they agree, the running plugin is
+this working tree. If they disagree, step 2 or step 3 was skipped.
+
+## Never remove the plugin in order to update it
+
+Updating is steps 0–6. Removing and re-adding is not a stronger version of that — it is
+a different operation with its own failure mode, and it is how an afternoon gets lost.
+
+Three registries hold this marketplace, and a removal that clears only some of them
+looks successful and reverts:
+
+| Registry | File / surface | Cleared by |
+|---|---|---|
+| CLI runtime | `~/.claude/plugins/known_marketplaces.json` | `claude plugin marketplace remove 00_memory` |
+| CLI declarative | `~/.claude/settings.json` → `extraKnownMarketplaces` | hand-editing that file |
+| Account | claude.ai → Settings → Plugins | **the web app only** |
+
+`extraKnownMarketplaces` is declarative: Claude Code reconciles the runtime registry
+against it at startup, so `marketplace remove` deletes the entry, reports success, and
+the next launch re-clones it. Observed 2026-09-08 — the plugin record emptied at
+15:44:28 and `marketplaces/00_memory` was re-cloned at 15:51:59, with `settings.json`
+the only remaining file naming it.
+
+The account-level entry is the one the desktop app checks when it says a plugin is
+*already added*. Removing it from the desktop app has not worked here; removing it from
+the **web** did.
+
+Order, if you must remove: web first, then `extraKnownMarketplaces`, then
+`marketplace remove`, then delete the on-disk copies, then restart both apps.
+
+## Old versions in the cache are normal
+
+`~/.claude/plugins/cache/` is additive — every installed version stays. Only the path in
+`installed_plugins.json` is live; the rest are inert and safe to delete.
+
+```bash
+ls ~/.claude/plugins/cache/00_memory/iclaw/
+```
+
+One directory is **not** inert bookkeeping: `~/.claude/plugins/cache/iclaw/` holds
+1.0.0–1.6.0 from before the 1.7.1 marketplace rename. That marketplace no longer exists,
+so nothing can ever refresh or remove them. Delete the directory.
 
 ## Docs
 

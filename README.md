@@ -16,6 +16,7 @@ off-tangent question costs zero memory tokens.
 | `iclaw:paper-digest` | An in-depth study guide to one academic paper |
 | `iclaw:define` | One term explained idea-first; in a project, recorded in `_canon/vocab.md` |
 | `iclaw:walkthrough` | One concrete input carried through an algorithm or process, state shown after every step, verified by running it; saved to `output/` in a project |
+| `iclaw:recap` | Takeaway, threads, settled and open points for one thread or the session, read from the session file's `## Threads` |
 | `iclaw:rerender` | The previous reply again, same claims, in another form: `simpler`, `deeper`, `example`, `tldr` |
 
 The reading skills work with no project folder. Inside an iclaw project they also log the

@@ -28,10 +28,10 @@ A read-only audit of all 16 projects under `00_iClaw` (2026-10-07) found:
    `## Durable Decisions` holds **only what the user decided**, so it needs no marker.
    An agent inference is never recorded as a decision; it goes to STATE `## Open Threads`
    as a question for the user.
-2. **Existing `[proposed]` items are all dropped, with no exemptions** — including the
-   chat-ratified ones. They remain readable in sealed session logs and in the
-   pre-migration snapshot. Anything still true is decided again when it comes up.
-   `[confirmed]` items lose the marker and stay.
+2. **Existing items keep their content; only the markers are stripped.** Every item that
+   carried any marker stays as it was, without the marker. (An earlier answer in the same
+   session chose to drop every `[proposed]` item; the user corrected it to strip only the
+   marker.) Which rows were once `[proposed]` is visible in the pre-migration snapshot.
 3. **Sealed session logs and `output/` artifacts are never edited.** Old markers in them
    are history.
 4. **Two memory files stay separate.** Merging saves nothing at session start (both are
@@ -69,8 +69,7 @@ A read-only audit of all 16 projects under `00_iClaw` (2026-10-07) found:
    `04_data_management_1` 2026-09-24) with the user's approval.
 2. Snapshot every scope's `CLAUDE.md`, `_memory/` and `_canon/` into
    `D:\00_iClaw\_archive\2026-10-07_pre-1.9.0\`. The workspace is not a git repository.
-3. Per scope, in a maintenance session logged in that scope: strip markers, drop
-   `[proposed]` items, move Do Not Repeat, trim STATE, move findings, set `profile:`, and
+3. Per scope, in a maintenance session logged in that scope: strip markers, move Do Not Repeat, trim STATE, move findings, set `profile:`, and
    replace the `CLAUDE.md` Conduct section. Run the validator.
 4. Assignments: `research` — the six thesis branches; `course` — `03_cfs_2`,
    `04_data_management_1`, `05_tqe`, and the new `07_cont_engineering`; `reference` —

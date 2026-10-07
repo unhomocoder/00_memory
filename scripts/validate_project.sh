@@ -65,7 +65,11 @@ for s in "$D"/_memory/sessions/*.md; do
     *_session_*)  exp="${b##*_}" ;;
     *)            fail "$b: filename must end _session or _session_<n>"; continue ;;
   esac
-  [ "$n" = "$exp" ] || fail "$b: frontmatter n='$n' disagrees with filename (expected $exp)"
+  if [ "$n" != "$exp" ]; then
+    # A sealed file is immutable. Report, never demand a fix.
+    if [ "$st" = "sealed" ]; then note "$b: frontmatter n='$n' disagrees with filename (expected $exp)"
+    else fail "$b: frontmatter n='$n' disagrees with filename (expected $exp)"; fi
+  fi
   last=$(tr -d '[:space:]' < "$s" | tail -c 3)
   if [ "$st" = "sealed" ]; then
     [ "$last" = "끝" ] || fail "$b: status sealed but does not end with the seal marker"

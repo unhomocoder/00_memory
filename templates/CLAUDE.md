@@ -94,7 +94,7 @@ agent to fill it.}
      skill beats one copy per project; the per-project copies have already drifted twice.
 
      A leading underscore carries four distinct meanings in this workspace:
-       _ or 00_ prefix on a directory  -> excluded from {nn} numbering
+       _ or 00_ prefix on a directory  -> excluded from nn numbering
        _memory/, _canon/               -> protocol-owned durable storage
        _index.md, _manifest.md         -> generated view; the filesystem is authoritative
        _seed_*/, _archive/             -> out of band, not a project

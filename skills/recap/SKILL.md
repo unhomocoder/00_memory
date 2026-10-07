@@ -1,6 +1,6 @@
 ---
 name: recap
-description: Recap one conversational thread or the whole session — a one-line takeaway, the key points, and what is still open — read from the session file's ## Threads in an iclaw project rather than from the scrollback. Use when the user asks for a recap, asks where things stand in this conversation, or asks what was settled on a topic.
+description: Recap one conversational thread or the whole session — a one-line takeaway, the key points, and what is still open — read from the session file's Threads section in an iclaw project rather than from the scrollback. Use when the user asks for a recap, asks where things stand in this conversation, or asks what was settled on a topic.
 ---
 
 # Recap

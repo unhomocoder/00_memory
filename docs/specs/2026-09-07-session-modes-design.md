@@ -1,6 +1,25 @@
 # Session Modes — Design Spec
 
-**Status** proposed 2026-09-07 · **Protocol** iclaw/1.0.0 → 1.1.0 (proposed)
+**Status** adopted 2026-10-07 (proposed 2026-09-07) · **Protocol** iclaw/1.0.0 → 1.1.0
+
+> **Adoption note, 2026-10-07.** Adopted by the user as the design for session modes.
+> Not yet implemented: the mode block, the `>>L` / `>>A` toggles, `templates/modes/`, the
+> `project-init` mode question and the validator checks in §6.2 do not exist yet. Parts of
+> this spec were overtaken by plugin releases after it was written, and read as follows:
+>
+> - **§5, the visibility line.** It renders the mode "inside the existing `[c:]` marker",
+>   but that marker was removed in plugin 1.7.0. Mode visibility needs another carrier
+>   before §5 can be built; this is the one design gap left.
+> - **§6.2, the placeholder prerequisite,** was met in 1.8.0 (the check is scoped by region).
+> - **§7, the `study` profile,** is superseded by 1.9.0's `course` and `reference` profiles
+>   (`docs/specs/2026-10-07-memory-kinds-and-marker-removal.md`). Open items 4 and 5 in §11
+>   are resolved by that change.
+> - **§11 open item 2, the default mode,** is settled as agentic: the 1.9.0 Conduct block's
+>   Threads rule names agentic as the default.
+> - **§5.1, the `coursework` preset,** stays a draft; its content is still unratified (§11
+>   open item 1).
+> - The shared-block pattern of §6 (inlined copy, hash in the delimiter, a script that
+>   recomputes it) is already in use for the reader rules: `scripts/reader_rules.sh`.
 
 Design for a two-mode session system — **agentic** and **learning** — plus the
 generate-and-check machinery that keeps its definition from drifting across branches,

@@ -14,6 +14,7 @@ off-tangent question costs zero memory tokens.
 | `iclaw:project-artifacts` | Before writing any file to `output/` |
 | `iclaw:digest` | A short faithful summary of any source: TL;DR, key points, action items, open questions |
 | `iclaw:paper-digest` | An in-depth study guide to one academic paper |
+| `iclaw:define` | One term explained idea-first; in a project, recorded in `_canon/vocab.md` |
 | `iclaw:rerender` | The previous reply again, same claims, in another form: `simpler`, `deeper`, `example`, `tldr` |
 
 The reading skills work with no project folder. Inside an iclaw project they also log the

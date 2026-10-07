@@ -20,14 +20,32 @@ off-tangent question costs zero memory tokens.
 ├── CLAUDE.md              ~45 lines, project-owned
 ├── _memory/
 │   ├── LONGTERM.md        curated big picture      ─┐ read every
-│   ├── STATE.md           handoff, rewritten       ─┘ session start
+│   ├── STATE.md           handoff, rewritten       ─┘ session start (none for profile reference)
 │   ├── _index.md          generated view
 │   └── sessions/          append-only, sealed with 끝
-├── _canon/                opt-in domain reference, on demand
+├── _canon/                opt-in, on demand: vocab.md, corpus.md, findings.md
 ├── input/
 ├── output/
 └── {nn}_{branch}/         same structure, recursive
 ```
+
+## Kinds of project
+
+`profile:` in `CLAUDE.md` and `LONGTERM.md` says what kind of project this is, and
+decides which sections `LONGTERM.md` carries and whether `STATE.md` exists.
+
+| Profile | Use | Memory |
+|---|---|---|
+| `research` | Open-ended research | STATE + LONGTERM; `_canon/` usually on |
+| `course` | A course being taken, or an exam being prepared | STATE + LONGTERM with a course card and deliverables; `_canon/` on |
+| `reference` | A finished course kept for review | LONGTERM only, with a material map |
+| `engineering`, `creative`, `none` | As named | STATE + LONGTERM |
+
+`STATE.md` is a handoff of 30 lines or fewer, rewritten at every seal. `LONGTERM.md`
+holds what binds future work — decisions the user made, open [TBD] items, Do Not Repeat,
+constraints. Results go to `_canon/findings.md`, loaded on demand. There are no status
+markers: a decision is a row only once the user has made it. Rationale in
+`docs/specs/2026-10-07-memory-kinds-and-marker-removal.md`.
 
 ## The leading underscore
 
@@ -59,8 +77,10 @@ Exit 0 conforming; exit 1 with one `FAIL:` line per violation. Three severities:
 | `NOTE` | A finding on a file the protocol forbids you to edit — sealed, or under `_memory/legacy/` — or an advisory. Report it verbatim; never act on it. Exit unaffected |
 | `WARN` | A target exceeded, not a rule broken |
 
-Checks the identity guard, `끝` sealing, filename/frontmatter agreement, unfilled
-placeholders, artifact naming, view stamps, the session-start read budget, and four
+Checks the profile and its required files, retired status markers in live memory and
+canon, the identity guard, `끝` sealing, filename/frontmatter agreement, unfilled
+placeholders, artifact naming, view stamps, the session-start read budget and the
+30-line STATE target, and four
 contract properties: `CLAUDE.md` is self-sufficient, the `canon:` declaration agrees
 with the filesystem, relative canon paths resolve against their own file, and every
 branch row marked `active` names a directory that exists.

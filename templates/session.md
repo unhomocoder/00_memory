@@ -7,6 +7,10 @@ status: active
 protocol: iclaw/1.0.0
 ---
 
+## Threads
+
+_None yet._
+
 ## Work
 
 ### {yyyy-mm-dd}

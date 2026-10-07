@@ -32,12 +32,23 @@ project that has none is `01` regardless of the parent's own number.
 1. Project name (lowercase, underscores for spaces).
 2. One paragraph: what this project is, and what "done" looks like.
 3. Initial objectives, if any.
-4. Enable `_canon/`? Default no. Enable it when the project will accumulate domain
+4. Enable `_canon/`? Default no, except for profile `course` (default yes, with
+   `vocab.md` and `corpus.md`). Enable it when the project will accumulate domain
    reference that must be looked up mid-task. Ask **which shape**, since canon holds
    more than terminology: `vocab.md` for terms whose exact form is the point of
    recording them, `corpus.md` for a domain index — one row per source, with a stated
-   entry threshold. Either, both, or neither.
-5. Profile: `research`, `creative`, `engineering`, or `none`.
+   entry threshold. `findings.md` for results the project itself produces. Any
+   combination, or none.
+5. Profile — what kind of project this is:
+
+   | Profile | Use for |
+   |---|---|
+   | `research` | Open-ended research, continuous discussion of new approaches |
+   | `course` | A course being taken now, or an exam being prepared for |
+   | `reference` | A finished course or body of material kept for later review |
+   | `engineering` | Building software |
+   | `creative` | Fiction, worldbuilding |
+   | `none` | None of the above |
 
 Ask these together, in one message. This is scaffolding, not discovery.
 
@@ -55,12 +66,13 @@ In this order:
 ├── CLAUDE.md                  from templates/CLAUDE.md
 ├── _memory/
 │   ├── LONGTERM.md            from templates/LONGTERM.md
-│   ├── STATE.md               from templates/STATE.md
+│   ├── STATE.md               from templates/STATE.md    ← not for profile reference
 │   ├── _index.md              from templates/_index.md
 │   └── sessions/              empty
 ├── _canon/                    only if enabled
 │   ├── vocab.md               from templates/vocab.md    ← if terminology
-│   └── corpus.md              from templates/corpus.md   ← if a domain index
+│   ├── corpus.md              from templates/corpus.md   ← if a domain index
+│   └── findings.md            from templates/findings.md ← if own results
 ├── input/                     empty
 └── output/
     └── _manifest.md           from templates/_manifest.md
@@ -92,9 +104,14 @@ Append to `LONGTERM.md` after `## Constraints`:
 | Profile | Sections |
 |---|---|
 | `research` | `## Corpus Conventions` |
+| `course` | `## Course` (full name, instructor, term, exam dates, grading), `## Deliverables` (a table: item, due, status), `## Conventions` |
+| `reference` | `## Material Map` (a table: folder, what it holds). Also **delete `## Objectives`** — nothing is ongoing — and create no `STATE.md` |
 | `creative` | `## Cast`, `## World Rules` |
 | `engineering` | `## Interfaces`, `## Conventions` |
 | `none` | nothing |
+
+A fact the user has not supplied is left out, never guessed: a `## Course` card with no
+exam date says nothing about the exam date, or lists it in `## [TBD] Register`.
 
 These hold **durable facts only**. Discarded ideas stay in session logs and never
 graduate here — long-term memory is read every session and must stay lean.

@@ -19,15 +19,24 @@ protocol: iclaw/1.0.0
 
 ## Durable Decisions
 
-| Date | Decision | Why | Marker | Supersedes |
-|---|---|---|---|---|
+Only what the user decided. An inference of yours is a question in `STATE.md`, never a row here.
+
+| Date | Decision | Why | Supersedes |
+|---|---|---|---|
 
 ## [TBD] Register
 
 Deliberately undecided. **A [TBD] is not a licence to improvise — stop and ask.**
+When an item is decided, delete its row and add the decision above.
 
-| Item | Waits on | Marker |
-|---|---|---|
+| Item | Waits on |
+|---|---|
+
+## Do Not Repeat
+
+Approaches tried and rejected, one line each with the reason, so no later session retries them.
+
+_None yet._
 
 ## Constraints
 

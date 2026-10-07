@@ -55,6 +55,8 @@ Read the parent's `LONGTERM.md` at orientation **only if** the active scope's
 1. Resolve scope + run the identity guard.
 2. Read STATE.md and LONGTERM.md. Plus the parent's LONGTERM.md iff `inherits:`
    is declared. Nothing else, ever — not session files, not _index.md, not _canon/.
+   A `profile: reference` project has no STATE.md: read LONGTERM.md only, skip
+   step 4, and take the STATE line of the report from LONGTERM's first paragraph.
 3. Look in sessions/ for a file whose status is not `sealed`:
      found -> resume it. Append under a new `### {yyyy-mm-dd}` subheading in ## Work.
      none  -> create sessions/{yyyy_mm_dd}_session[_n].md from templates/session.md.
@@ -99,18 +101,25 @@ Append entries as work lands, so a session that ends abruptly still leaves a rec
 | File written to `output/` | session `## Files Touched → Produced` **and** a `_manifest.md` row |
 | Source file edited in place | session `## Files Touched → Modified` only |
 | File read from `input/` | session `## Files Touched → Consumed` only |
-| A durable decision | `LONGTERM.md ## Durable Decisions`, with a marker |
-| An approach tried and rejected | `STATE.md ## Do Not Repeat` |
-| A new domain term or settled fact | `_canon/`, marked `[proposed]` unless the user confirmed it |
+| A decision **the user made** | `LONGTERM.md ## Durable Decisions`: date, decision, why, what it supersedes |
+| Your own suggestion or inference awaiting the user | `STATE.md ## Open Threads`, phrased as a question for the user (profile: reference: session `## Threads`) |
+| An approach tried and rejected | `LONGTERM.md ## Do Not Repeat`, one line with the reason |
+| A standing fact about the environment ("HuggingFace is unreachable") | `LONGTERM.md ## Constraints` |
+| A result this project produced (a measurement, a computed statistic) | `_canon/findings.md`, labelled **sourced**, **derived** or **open** |
+| A finding about a paper | that paper's row in `_canon/corpus.md` |
+| A term the user and you agreed on | `_canon/vocab.md` |
 | A decision deliberately deferred | `LONGTERM.md ## [TBD] Register` |
+| A conversational thread opened, resolved or parked | session `## Threads` |
 
 `## Work` is the project's dated record, not a summary. Log outcomes as they land:
 what was done, what was decided, what was set aside and why. One line per item,
 written as project history; condensing it is the summary's job at seal time.
 
-Set-aside approaches stay in the session log so a later session does not retry
-them. **They never graduate into `LONGTERM.md`**, which is read every session and
-must stay lean.
+**Only the user makes a decision.** A row in `## Durable Decisions` records something
+the user said, in this session or a sealed one. There is no status marker and no
+promotion step: what you would have proposed is a question in `## Open Threads` until
+the user answers it, and then it is a decision or it is gone. If `_canon/` is disabled,
+a finding or term has no home; mention it and ask whether to enable canon.
 
 ## SEAL
 
@@ -120,14 +129,26 @@ a session feels finished.
 ```
 1. Write the session's ## Summary: what was accomplished, what was left open,
    decisions and their rationale, any change of direction.
-2. Rewrite STATE.md in full — current state, open threads, blocked, do not repeat.
-   Set `updated:`. (`last_session:` was already set at ORIENT.)
-3. Update LONGTERM.md objective checkboxes where status changed.
-4. Set `status: sealed` in the session frontmatter.
-5. Append the seal marker 끝 as the final line. Nothing after it — no trailing
+2. Route the session's ## Threads:
+     resolved           -> stay in the session file, with their one-line takeaway
+     open or parked     -> STATE.md ## Open Threads, with where each stopped
+                           (profile: reference has no STATE -- list them in ## Summary)
+     rejected approach  -> LONGTERM.md ## Do Not Repeat
+     settled term       -> _canon/vocab.md, if canon is enabled
+3. Rewrite STATE.md in full — current state in 2-4 sentences, open threads, blocked.
+   Drop threads that are done. Target 30 lines. Set `updated:`. (`last_session:` was
+   already set at ORIENT.) Skip for profile: reference.
+4. Update LONGTERM.md objective checkboxes where status changed.
+5. Set `status: sealed` in the session frontmatter.
+6. Append the seal marker 끝 as the final line. Nothing after it — no trailing
    whitespace, no newline of content.
-6. Rebuild the session index:  bash <plugin_dir>/scripts/reindex.sh <project_dir>
+7. Rebuild the session index:  bash <plugin_dir>/scripts/reindex.sh <project_dir>
 ```
+
+**STATE.md is a handoff, not a second LONGTERM.** Results go to `_canon/findings.md`,
+literature to `_canon/corpus.md`, rejected approaches to `## Do Not Repeat`, how-to
+instructions to an `output/` artifact. What remains is where the work stands and what
+comes next.
 
 **Do not hand-write `_index.md`.** It is a view whose every column comes out of session
 frontmatter, and it was previously appended by hand at seal — which is why nine session
@@ -139,8 +160,9 @@ the files. It is not tied to sealing; run it any time the view is wanted.
 - **Never seal on your own initiative.** Only on the user's explicit signal.
 - **Never modify a file that ends with 끝.** Sealed is permanent, for every agent,
   without exception. This includes files inherited from older protocol versions.
-- **Never assign `[confirmed]`.** That marker belongs to the user alone. Your own
-  inferences are `[proposed]` until they approve them.
+- **Never record your own inference as a decision.** `## Durable Decisions` holds only
+  what the user decided. No status markers anywhere — `[proposed]`, `[confirmed]` and
+  their relatives were retired in 1.9.0; markers in sealed files are history.
 - **Never edit `_index.md` or `_manifest.md` to add information that is not in a
   session file.** They are views; session files are the source. `_index.md` is
   rebuilt by `scripts/reindex.sh`, never written by hand.
@@ -159,7 +181,7 @@ the files. It is not tied to sealing; run it any time the view is wanted.
 | Situation | Behavior |
 |---|---|
 | No `_memory/` | Offer `iclaw:project-init` in migrate mode. Create nothing unasked |
-| `STATE.md` missing but sessions exist | Rebuild a draft from the newest session's summary, set `reconstructed: true`, and ask the user to confirm it before relying on it |
+| `STATE.md` missing but sessions exist, and the profile is not `reference` | Rebuild a draft from the newest session's summary, set `reconstructed: true`, and ask the user to confirm it before relying on it |
 | Newest session file is unsealed | Resume it under a dated subheading. **Never auto-seal** |
 | `protocol:` version mismatch | Report under FLAGS, name what structurally differs, proceed. **Never rewrite an old file to conform** — drift is recorded, not repaired |
 | Identity guard mismatch | **Stop. Write nothing.** Report both values |

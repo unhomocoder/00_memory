@@ -25,7 +25,7 @@ Say, anywhere:
 | **Purpose** | one paragraph — what it is, what "done" looks like |
 | **Objectives** | initial ones, if you have any |
 | **Canon?** | default no. Yes if the project accumulates terminology, a cast, world rules — anything you look up mid-task |
-| **Profile** | `research`, `creative`, `engineering`, or `none` |
+| **Profile** | `research`, `course`, `reference`, `engineering`, `creative`, or `none`. A `reference` project (a finished course kept for review) gets no `STATE.md` |
 
 It shows you the tree, waits for your yes, then writes:
 

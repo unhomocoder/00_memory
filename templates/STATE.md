@@ -18,7 +18,3 @@ protocol: iclaw/1.0.0
 ## Blocked
 
 - {thing} — waiting on {what}
-
-## Do Not Repeat
-
-- {approach} — rejected because {why}

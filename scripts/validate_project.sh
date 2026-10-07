@@ -12,18 +12,34 @@ fails=0
 fail() { echo "FAIL: $*"; fails=$((fails+1)); }
 note() { echo "NOTE: $*"; }
 
+# --- frontmatter helper -----------------------------------------------------
+fm() { sed -n '/^---$/,/^---$/p' "$1" 2>/dev/null | sed -n "s/^$2: *//p" | head -1; }
+
+# --- profile ----------------------------------------------------------------
+# A reference project (a finished course kept for review) has no STATE.md: nothing
+# is ongoing, so there is nothing to hand off.
+prof=$(fm "$D/CLAUDE.md" profile)
+case "$prof" in
+  research|course|reference|engineering|creative|none) ;;
+  "") fail "CLAUDE.md has no profile: field" ;;
+  *)  fail "CLAUDE.md profile='$prof'; expected research, course, reference, engineering, creative or none" ;;
+esac
+plt=$(fm "$D/_memory/LONGTERM.md" profile)
+[ -z "$plt" ] || [ "$plt" = "$prof" ] || fail "profile mismatch: CLAUDE.md '$prof' != LONGTERM.md '$plt'"
+
 # --- required structure -----------------------------------------------------
 [ -f "$D/CLAUDE.md" ]            || fail "missing CLAUDE.md"
 [ -d "$D/_memory" ]              || fail "missing _memory/"
 [ -f "$D/_memory/LONGTERM.md" ]  || fail "missing _memory/LONGTERM.md"
-[ -f "$D/_memory/STATE.md" ]     || fail "missing _memory/STATE.md"
+if [ "$prof" = "reference" ]; then
+  [ -f "$D/_memory/STATE.md" ]   && fail "profile reference must not carry _memory/STATE.md"
+else
+  [ -f "$D/_memory/STATE.md" ]   || fail "missing _memory/STATE.md"
+fi
 [ -d "$D/_memory/sessions" ]     || fail "missing _memory/sessions/"
 [ -d "$D/input" ]                || fail "missing input/"
 [ -d "$D/output" ]               || fail "missing output/"
 [ -d "$D/.memory" ]              && fail ".memory/ present - must be _memory/ (Obsidian ignores dot-dirs)"
-
-# --- frontmatter helper -----------------------------------------------------
-fm() { sed -n '/^---$/,/^---$/p' "$1" 2>/dev/null | sed -n "s/^$2: *//p" | head -1; }
 
 # --- identity guard ---------------------------------------------------------
 if [ -f "$D/CLAUDE.md" ] && [ -f "$D/_memory/LONGTERM.md" ]; then
@@ -84,6 +100,18 @@ for f in "$D/CLAUDE.md" "$D/_memory/LONGTERM.md" "$D/_memory/STATE.md" \
   # A sealed file is immutable. Report, never demand a fix.
   if [ "$(fm "$f" status)" = "sealed" ]; then note "$msg"; else fail "$msg"; fi
 done
+
+# --- retired status markers (1.9.0) ----------------------------------------
+# Decisions record only what the user decided, so no status marker is needed. Sealed
+# session logs and output/ artifacts keep old markers as history and are not scanned.
+for f in "$D/_memory/LONGTERM.md" "$D/_memory/STATE.md" "$D"/_canon/*.md; do
+  [ -f "$f" ] || continue
+  n=$(grep -cE '\[(proposed|confirmed|provisional|open|deprecated)\]' "$f")
+  [ "$n" -eq 0 ] || fail "${f#$D/}: $n line(s) carry a retired status marker ([proposed], [confirmed], [provisional], [open], [deprecated])"
+done
+if [ -f "$D/_memory/STATE.md" ] && grep -q '^## Do Not Repeat' "$D/_memory/STATE.md"; then
+  fail "STATE.md has ## Do Not Repeat; since 1.9.0 it lives in LONGTERM.md"
+fi
 
 # --- generated views stamped ------------------------------------------------
 for v in "$D/_memory/_index.md" "$D/output/_manifest.md"; do
@@ -159,9 +187,14 @@ if [ -f "$D/_memory/LONGTERM.md" ]; then
 fi
 
 # --- session-start read budget ----------------------------------------------
-if [ -f "$D/_memory/STATE.md" ] && [ -f "$D/_memory/LONGTERM.md" ]; then
-  lines=$(cat "$D/_memory/STATE.md" "$D/_memory/LONGTERM.md" | wc -l)
+if [ -f "$D/_memory/LONGTERM.md" ]; then
+  lines=$(cat "$D/_memory/LONGTERM.md" "$D/_memory/STATE.md" 2>/dev/null | wc -l)
   [ "$lines" -le 200 ] || echo "WARN: session-start read is $lines lines (target <=200)"
+fi
+if [ -f "$D/_memory/STATE.md" ]; then
+  # Frontmatter excluded: the target is the handoff text, not the header.
+  sl=$(awk '/^---$/ { c++; next } c >= 2' "$D/_memory/STATE.md" | wc -l)
+  [ "$sl" -le 30 ] || echo "WARN: STATE.md body is $sl lines (target <=30)"
 fi
 
 if [ "$fails" -eq 0 ]; then echo "OK: $D conforms to iclaw/1.0.0"; exit 0; fi

@@ -1,0 +1,27 @@
+{
+  "skill_name": "paper-digest",
+  "evals": [
+    {
+      "id": 0,
+      "name": "backprop-1986-short-landmark",
+      "prompt": "Summarize this paper for me — I've read the abstract and intro already.",
+      "expected_output": "A study-guide digest of Rumelhart, Hinton & Williams (1986) that skips the abstract/intro, explains the delta rule generalization and the chain-rule derivation in plain language, covers the family-tree and symmetry-detection tasks as the evaluation, defines the notation, and points at the specific figures worth looking at. Should compress below the 900-word floor because the paper is only 4 pages.",
+      "files": ["backprop.pdf"],
+      "why_this_case": "Stress-tests the short-paper edge case, dense 1986 notation, and a paper with no modern-style benchmark table.",
+      "assertions": [
+        "Does not contain a section that summarizes the abstract or the introduction",
+        "Contains all seven required sections: header takeaway, Big Idea, Research Questions, Method, How They Tested It, What They Found, Vocabulary, Where to Actually Look",
+        "The Big Idea section names the specific prior limitation (no learning procedure for hidden units / perceptron limitation) rather than a generic 'prior work was limited'",
+        "Every mathematical symbol that appears in the digest is defined in words at or before its first use",
+        "Glossary contains between 6 and 12 entries",
+        "Each glossary entry has both a general definition and a note on how this specific paper uses the term",
+        "Contains at least one analogy explicitly marked as an analogy for the core mechanism",
+        "The 'Where to Actually Look' section cites at least three specific figures, tables, or sections with page numbers",
+        "Numbers quoted in the digest match the paper exactly (spot-check all numeric claims)",
+        "Does not use 'novel', 'leverage', 'utilize', 'state-of-the-art', 'significantly', or 'robust' without immediately quantifying against what",
+        "Explicitly flags at least one thing the paper leaves unspecified, rather than smoothing over it",
+        "Distinguishes what the paper demonstrated from what it claimed or speculated about future work"
+      ]
+    }
+  ]
+}

@@ -12,6 +12,17 @@ off-tangent question costs zero memory tokens.
 | `iclaw:project-init` | Starting a project, branching one, or migrating a folder onto the protocol |
 | `iclaw:project-memory` | Session start, recording a decision, session end |
 | `iclaw:project-artifacts` | Before writing any file to `output/` |
+| `iclaw:digest` | A short faithful summary of any source: TL;DR, key points, action items, open questions |
+| `iclaw:paper-digest` | An in-depth study guide to one academic paper |
+
+The reading skills work with no project folder. Inside an iclaw project they also log the
+source as Consumed and add a `_canon/corpus.md` row.
+
+**Shared reader rules.** `templates/reader-rules.md` is the single source for the rules every
+reading skill follows (idea before term, plain wording without changing the claim, keep
+numbers and warnings). Each skill carries an inlined copy stamped with its hash. After
+editing the template run `bash scripts/reader_rules.sh sync`; before a release,
+`bash scripts/reader_rules.sh check` must print `OK`.
 
 ## Project shape
 
@@ -106,7 +117,8 @@ nothing until all seven steps (0–6) are done. One command per line: Windows Po
 # 0. git status --short must be EMPTY. An untracked file is not in the package,
 #    and every command below will report success without it.
 git status --short
-# 1. edit skills/<name>/SKILL.md
+# 1. edit skills/<name>/SKILL.md; if templates/reader-rules.md changed, run
+#    bash scripts/reader_rules.sh sync   (and check must print OK)
 # 2. bump "version" in .claude-plugin/plugin.json   ← without this, step 4 is a no-op
 # 3. commit and push — the marketplace resolves from the git remote, not this folder
 git add -A

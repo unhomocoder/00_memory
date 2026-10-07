@@ -2,14 +2,33 @@
 
 **Status** adopted 2026-10-07 (proposed 2026-09-07) · **Protocol** iclaw/1.0.0 → 1.1.0
 
-> **Adoption note, 2026-10-07.** Adopted by the user as the design for session modes.
-> Not yet implemented: the mode block, the `>>L` / `>>A` toggles, `templates/modes/`, the
-> `project-init` mode question and the validator checks in §6.2 do not exist yet. Parts of
-> this spec were overtaken by plugin releases after it was written, and read as follows:
+> **Adoption note, 2026-10-07.** Adopted by the user and implemented in plugin 1.16.0.
+> Where the implementation departs from the text below, the implementation holds:
 >
-> - **§5, the visibility line.** It renders the mode "inside the existing `[c:]` marker",
->   but that marker was removed in plugin 1.7.0. Mode visibility needs another carrier
->   before §5 can be built; this is the one design gap left.
+> - **§5, visibility.** The `[c:]` marker was removed in 1.7.0, so learning mode is shown by
+>   a `[learning]` prefix on every substantive reply; agentic replies carry none (user's
+>   choice, 2026-10-07).
+> - **§5, the language toggle joins the block.** At the user's request, the Language rule
+>   moved out of `## Conduct` into the block, now `## Mode and language`: English by default,
+>   `>>ko` / `>>en` or any language code to switch, never recorded.
+> - **§2 Decisions 3-4 and §4, placement.** The block is in **every** project's `CLAUDE.md`,
+>   not only the three top-level ones. The coursework branches each have their own Cowork
+>   project (03_grad_coursework decision of 2026-09-08), Cowork is rooted at the project
+>   folder, and since 1.8.0 every `CLAUDE.md` must be self-sufficient because Cowork loads
+>   no ancestor. Hash checking makes seventeen copies as safe as three.
+> - **§5.1 and §6, presets.** One preset, `templates/modes/standard.md`, built from the §5.1
+>   draft rows with "Kyle" replaced by "the user"; its content is now in use, and more
+>   presets can be added beside it. The preset is named in the delimiter
+>   (`<!-- iclaw:mode preset=standard sha=... -->`), not in a `mode_preset:` frontmatter
+>   field, so there is one place to read it. `project-init` asks no mode question; it
+>   writes the block from the template and refreshes it with `scripts/mode_block.sh`.
+> - **§6.2, checks.** `validate_project.sh` fails a missing, duplicated, stale or hand-edited
+>   block (checks 1, 2 and 4). Check 3 (top-level only) is dropped with the placement change;
+>   check 5 (the `## Conduct` and `## Rules` blocks match the template) is not built.
+> - **§10, verification.** Checks 3 and 5 were run while building; check 4 (toggle to
+>   learning, compact, continue) needs a live Cowork session and is still to do.
+>
+> Other parts were overtaken by releases made after this spec was written:
 > - **§6.2, the placeholder prerequisite,** was met in 1.8.0 (the check is scoped by region).
 > - **§7, the `study` profile,** is superseded by 1.9.0's `course` and `reference` profiles
 >   (`docs/specs/2026-10-07-memory-kinds-and-marker-removal.md`). Open items 4 and 5 in §11

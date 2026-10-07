@@ -23,6 +23,15 @@ off-tangent question costs zero memory tokens.
 The reading skills work with no project folder. Inside an iclaw project they also log the
 source as Consumed and add a `_canon/corpus.md` row.
 
+**Mode and language.** Every project's `CLAUDE.md` carries a `## Mode and language` block:
+sessions start agentic and in English; `>>L` / `>>A` switch between learning and agentic,
+`>>ko` / `>>en` (or any language code) switch language; learning-mode replies begin with
+`[learning]`; neither setting is ever recorded. The block is generated from
+`templates/modes/standard.md`, inlined (Cowork loads no ancestor `CLAUDE.md`), and stamped
+with a hash. `scripts/mode_block.sh sync <CLAUDE.md>` writes it, `check` verifies it, and
+`validate_project.sh` fails a missing, stale or hand-edited block. Design:
+`docs/specs/2026-09-07-session-modes-design.md`.
+
 **Shared reader rules.** `templates/reader-rules.md` is the single source for the rules every
 reading skill follows (idea before term, plain wording without changing the claim, keep
 numbers and warnings). Each skill carries an inlined copy stamped with its hash. After

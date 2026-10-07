@@ -81,6 +81,11 @@ In this order:
 Replace every `{placeholder}` — `{project_name}`, `{nn}`, `{yyyy-mm-dd}`. A file
 that still contains `{` after writing is a defect.
 
+The template's `CLAUDE.md` already carries the mode block (`## Mode and language`). After
+writing it, refresh the block from its source so it is current:
+`bash <plugin_dir>/scripts/mode_block.sh sync <project_dir>/CLAUDE.md`. Never edit the
+block by hand; the validator fails a block that differs from `templates/modes/`.
+
 Set `CLAUDE.md` frontmatter: `project`, `memory_root: ./_memory`, `canon` (`none`
 or `./_canon`), `profile`, `protocol: iclaw/1.0.0`.
 

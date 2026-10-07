@@ -139,6 +139,15 @@ if [ -f "$D/CLAUDE.md" ] && grep -q '\.\./CLAUDE\.md' "$D/CLAUDE.md"; then
   fail "CLAUDE.md defers to a parent CLAUDE.md - it must state its own rules in full"
 fi
 
+# --- contract: the mode block is present and current ------------------------
+# Every project carries one inlined copy of templates/modes/<preset>.md, stamped
+# with its hash. Cowork loads no ancestor CLAUDE.md, so a block only in a parent
+# would never reach a session rooted here.
+if [ -f "$D/CLAUDE.md" ]; then
+  mb=$(bash "$(dirname "$0")/mode_block.sh" check "$D/CLAUDE.md")
+  case "$mb" in OK:*) ;; *) fail "${mb#FAIL: }" ;; esac
+fi
+
 # --- contract: canon declaration agrees with the filesystem -----------------
 if [ -f "$D/CLAUDE.md" ]; then
   cdecl=$(fm "$D/CLAUDE.md" canon)
